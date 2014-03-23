@@ -42,7 +42,7 @@ public class MakeGrid : MonoBehaviour {
 	}	
 	
 	public Vector3 snapHeight(Vector3 temp){
-		temp.y = heightPos + 1;
+		temp.z = heightPos + 1;
 		return temp;
 	}
 	public Vector3 snap(Vector3 temp){
