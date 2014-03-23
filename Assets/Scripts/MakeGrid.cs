@@ -7,20 +7,19 @@ using System.Collections.Generic;
 public class MakeGrid : MonoBehaviour {
 	
 	public Transform squarePrefab;
-	public static int width = 8;
-	public static int length = 8;
-	public static float heightPos = 0;
-	public static float xPos = 0;
-	public static float zPos = 0;
-	public Transform[,] squares;
+	public int width = 8;
+	public int length = 8;
+	public float heightPos = 0;
+	public float xPos = 0;
+	public float zPos = 0;
+	public static Transform[,] squares;
 	
 	void Start () {
 		SetUpBoard();
 	}
 	
 	void Update(){
-		
-		
+			
 	}
 	
 	string sayName(Transform t){
@@ -40,11 +39,11 @@ public class MakeGrid : MonoBehaviour {
 		}
 	}
 	
-	public static Vector3 snapHeight(Vector3 temp){
+	public Vector3 snapHeight(Vector3 temp){
 		temp.y = heightPos + 1;
 		return temp;
 	}
-	public static Vector3 snap(Vector3 temp){
+	public Vector3 snap(Vector3 temp){
 		float intersectionOffset = 0.0f;
 
 		temp = snapHeight(temp);
@@ -69,8 +68,6 @@ public class MakeGrid : MonoBehaviour {
 		temp.z = offset + zPos + intersectionOffset;
 		
 		return temp;
-		
 	}
-	
 }
 
