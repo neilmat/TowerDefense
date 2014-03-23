@@ -9,9 +9,6 @@ public class TerrainTileScript : MonoBehaviour {
 	public float base_regen_rate = 1;
 	public float regen_multiplier = 1;
 	public float current_energy;
-	
-	private Renderer renderer;
-
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +16,6 @@ public class TerrainTileScript : MonoBehaviour {
 			global_max_base = base_energy;
 		}
 		current_energy = base_energy*energy_multiplier;
-		renderer = this.gameObject.renderer;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +24,6 @@ public class TerrainTileScript : MonoBehaviour {
 		if (current_energy > base_energy*energy_multiplier){
 			current_energy = base_energy*energy_multiplier;
 		}
-		renderer.material.color = new Color(0,0,current_energy/global_max_base);
+		this.gameObject.renderer.material.color = new Color(0,0,current_energy/global_max_base);
 	}
 }
