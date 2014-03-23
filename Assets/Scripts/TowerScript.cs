@@ -9,6 +9,7 @@ public class TowerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		this.gameObject.transform.position = GameObject.Find("MakeGrid").GetComponent<MakeGrid>().snap(this.gameObject.transform.position);
 		ModifyTerrain(energy_multiplier, regen_multiplier);
 	}
 	
@@ -22,8 +23,9 @@ public class TowerScript : MonoBehaviour {
 		//TODO: anything other than gausian
 		foreach (GameObject terrain_tile in terrain_tiles) {
 			Debug.Log("editing obj");
-			float d = Vector3.Distance(terrain_tile.transform.position, this.gameObject.transform.position);
-			float m = Mathf.Exp(-d*d/(2*sigma2));
+			float d2 = Mathf.Pow(terrain_tile.transform.position.x-this.gameObject.transform.position.x,2)+
+						Mathf.Pow(terrain_tile.transform.position.y-this.gameObject.transform.position.y,2);
+			float m = Mathf.Exp(-d2/(2*sigma2));
 			Debug.Log("m="+m);
 			TerrainTileScript ts = terrain_tile.GetComponent<TerrainTileScript>();
 			float em = 1-(1-energy_multiplier_base)*m;
