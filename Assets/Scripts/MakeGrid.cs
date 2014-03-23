@@ -11,7 +11,7 @@ public class MakeGrid : MonoBehaviour {
 	public int length = 20;
 	public float heightPos = 0;
 	public float xPos = 0;
-	public float zPos = 0;
+	public float yPos = 0;
 	public static Transform[,] board;
 	
 	void Start () {
@@ -23,20 +23,20 @@ public class MakeGrid : MonoBehaviour {
 	}
 	
 	string sayName(Transform t){
-		return "(" + t.position.x + ", " + heightPos + ", " + t.position.z + ")";
+		return "(" + t.position.x + ", " + t.position.y + ", " + t.position.z + ")";
 	}
 	
 	void SetUpBoard(){
 		board = new Transform[width, length];
 		for (int x = 0; x < width; x++) {
-			for (int z = 0; z < length; z++) {
+			for (int y = 0; y < length; y++) {
 				Transform newSquare;
-				newSquare = (Transform)Instantiate(squarePrefab, new Vector3 (x + xPos, heightPos, z + zPos), Quaternion.identity);
+				newSquare = (Transform)Instantiate(squarePrefab, new Vector3 (x + xPos, y + yPos, heightPos), Quaternion.identity);
 				newSquare.parent = transform;	//puts grid as parent of gameSquare
 				newSquare.name = sayName(newSquare);
-				//newSquare.GetComponent<terrainTowerScript>.baseEnergy = 10;
-				//newSquare.GetComponent<terrainTowerScript>.baseRegen = 1;
-				board[x, z] = newSquare;		//note that this array is x by z so layout (column, row) instead of (row, column)
+				newSquare.GetComponent<TerrainTileScript>().base_energy = 10;
+				newSquare.GetComponent<TerrainTileScript>().base_regen_rate = 1;
+				board[x, y] = newSquare;		//note that this array is x by z so layout (column, row) instead of (row, column)
 			}
 		}
 	}	
@@ -55,19 +55,19 @@ public class MakeGrid : MonoBehaviour {
 		else if(temp.x > xPos + width - 1 + intersectionOffset){
 			temp.x = xPos + width - 1 + intersectionOffset;
 		}
-		if(temp.z < zPos - intersectionOffset){
-			temp.z = zPos - intersectionOffset;
+		if(temp.y < yPos - intersectionOffset){
+			temp.y = yPos - intersectionOffset;
 		}
-		else if(temp.z > zPos + length - 1 + intersectionOffset){
-			temp.z = zPos + length - 1 + intersectionOffset;
+		else if(temp.y > yPos + length - 1 + intersectionOffset){
+			temp.y = yPos + length - 1 + intersectionOffset;
 		}
 		float offset = temp.x - xPos - intersectionOffset;
 		offset = Mathf.Round(offset);
 		temp.x = offset + xPos + intersectionOffset;
 		
-		offset = temp.z - zPos - intersectionOffset;
+		offset = temp.y - yPos - intersectionOffset;
 		offset = Mathf.Round(offset);
-		temp.z = offset + zPos + intersectionOffset;
+		temp.y = offset + yPos + intersectionOffset;
 		
 		return temp;
 	}
